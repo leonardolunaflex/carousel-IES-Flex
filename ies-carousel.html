@@ -5,42 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IES Accordion Carousel</title>
 
-  <!-- ================= IES ACCORDION CAROUSEL ================= -->
-
   <style>
-    /* Contenedor principal para aislar los estilos del resto de SharePoint */
+
+
+    /* Fuente personalizada */
+    @font-face {
+      font-family: 'AvantGardeBold';
+      src: url('fonts/ITC-Avant-Garde-Gothic-Pro-Bold.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* Contenedor principal */
     .ies-carousel-container {
       display: flex;
+      flex-direction: column;             /* 🔹 CAMBIO CLAVE */
       align-items: center;
-      justify-content: center;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: transparent;
       padding: 20px;
       box-sizing: border-box;
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      height: 500px;
     }
 
+    /* Título arriba */
     .ies-title-section {
-      flex: 0 0 350px;
-      padding-right: 40px;
-      text-align: right;
+      width: 100%;
+      text-align: center;                 /* 🔹 */
+      margin-bottom: 30px;                /* 🔹 separa del carrusel */
     }
 
     .ies-title-section h2 {
+      font-family: 'AvantGardeBold', 'Segoe UI', Tahoma, sans-serif;
       color: #262626;
-      font-size: 2.5rem;
+      font-size: 3rem;
       line-height: 1.2;
       margin: 0;
       font-weight: 800;
     }
 
+    /* Carrusel ahora usa todo el ancho */
     .ies-accordion {
       display: flex;
-      flex: 1;
-      height: 100%;
+      width: 100%;
+      height: 450px;                      /* 🔹 MÁS ALTURA */
       gap: 15px;
       overflow: hidden;
     }
@@ -64,51 +73,37 @@
 
     .ies-panel-overlay {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      inset: 0;
       background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%);
-      pointer-events: none;
     }
 
     .ies-label {
       position: absolute;
-      bottom: 40px;
+      bottom: 30px;
       left: 0;
       background-color: #005486;
       color: #ffffff;
       padding: 12px 20px;
       font-size: 1.1rem;
       font-weight: bold;
-      white-space: nowrap;
       transition: all 0.4s ease;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
       border-top-right-radius: 4px;
       border-bottom-right-radius: 4px;
-      max-width: calc(100% - 20px);
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .ies-panel:hover .ies-label,
     .ies-panel.active .ies-label {
-      white-space: normal;
       background-color: #009ADD;
     }
 
     /* Responsive */
     @media (max-width: 900px) {
-      .ies-carousel-container {
-        flex-direction: column;
-        height: auto;
-      }
-      .ies-title-section {
-        flex: none;
-        text-align: center;
-        padding-right: 0;
-        margin-bottom: 30px;
-      }
       .ies-accordion {
-        height: 400px;
-        width: 100%;
+        height: 380px;
+      }
+
+      .ies-title-section h2 {
+        font-size: 2.4rem;
       }
     }
 
@@ -117,14 +112,6 @@
         flex-direction: column;
         height: 600px;
       }
-      .ies-panel {
-        border-radius: 10px;
-      }
-      .ies-label {
-        bottom: 10px;
-        font-size: 0.9rem;
-        padding: 8px 15px;
-      }
     }
   </style>
 </head>
@@ -132,14 +119,10 @@
 <body>
 
   <div class="ies-carousel-container">
+
     <!-- Título -->
     <div class="ies-title-section">
-      <h2>
-        Enterprise<br>
-        Integration<br>
-        Services -<br>
-        Operation Team
-      </h2>
+      <h2>Enterprise Integration Services - Operation Team</h2>
     </div>
 
     <!-- Carrusel -->
@@ -163,32 +146,14 @@
         <div class="ies-label">AXON</div>
       </div>
 
-      <!--
-      <div class="ies-panel"
-           style="background-image:url('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80');">
-        <div class="ies-panel-overlay"></div>
-        <div class="ies-label">IES Certification</div>
-      </div>
-
-      <div class="ies-panel"
-           style="background-image:url('https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&q=80');">
-        <div class="ies-panel-overlay"></div>
-        <div class="ies-label">Trainings</div>
-      </div>
-      -->
     </div>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', () => {
       const panels = document.querySelectorAll('.ies-panel');
 
       panels.forEach(panel => {
-        panel.addEventListener('click', () => {
-          panels.forEach(p => p.classList.remove('active'));
-          panel.classList.add('active');
-        });
-
         panel.addEventListener('mouseenter', () => {
           panels.forEach(p => p.classList.remove('active'));
           panel.classList.add('active');
@@ -196,8 +161,6 @@
       });
     });
   </script>
-
-  <!-- ================= END IES ACCORDION CAROUSEL ================= -->
 
 </body>
 </html>
