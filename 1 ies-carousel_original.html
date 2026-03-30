@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IES Accordion Carousel</title>
+
+  <style>
+
+
+    /* Fuente personalizada */
+    @font-face {
+      font-family: 'AvantGardeBold';
+      src: url('fonts/ITC-Avant-Garde-Gothic-Pro-Bold.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* Contenedor principal */
+    .ies-carousel-container {
+      display: flex;
+      flex-direction: column;             /* 🔹 CAMBIO CLAVE */
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Título arriba */
+    .ies-title-section {
+      width: 100%;
+      text-align: center;                 /* 🔹 */
+      margin-bottom: 30px;                /* 🔹 separa del carrusel */
+    }
+
+    .ies-title-section h2 {
+      font-family: 'AvantGardeBold', 'Segoe UI', Tahoma, sans-serif;
+      color: #262626;
+      font-size: 3rem;
+      line-height: 1.2;
+      margin: 0;
+      font-weight: 800;
+    }
+
+    /* Carrusel ahora usa todo el ancho */
+    .ies-accordion {
+      display: flex;
+      width: 100%;
+      height: 450px;                      /* 🔹 MÁS ALTURA */
+      gap: 15px;
+      overflow: hidden;
+    }
+
+    .ies-panel {
+      position: relative;
+      flex: 1;
+      border-radius: 20px;
+      background-size: cover;
+      background-position: center;
+      transition: flex 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: pointer;
+      overflow: hidden;
+      background-color: #ededed;
+    }
+
+    .ies-panel:hover,
+    .ies-panel.active {
+      flex: 3;
+    }
+
+    .ies-panel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%);
+    }
+
+    .ies-label {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      background-color: #005486;
+      color: #ffffff;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.4s ease;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    .ies-panel:hover .ies-label,
+    .ies-panel.active .ies-label {
+      background-color: #009ADD;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .ies-accordion {
+        height: 380px;
+      }
+
+      .ies-title-section h2 {
+        font-size: 2.4rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .ies-accordion {
+        flex-direction: column;
+        height: 600px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="ies-carousel-container">
+
+    <!-- Título -->
+    <div class="ies-title-section">
+      <h2>Enterprise Integration Services - Operation Team</h2>
+    </div>
+
+    <!-- Carrusel -->
+    <div class="ies-accordion">
+
+      <div class="ies-panel active"
+           style="background-image:url('./images/webMethods.png');">
+        <div class="ies-panel-overlay"></div>
+        <div class="ies-label">webMethods</div>
+      </div>
+
+      <div class="ies-panel"
+           style="background-image:url('./images/rvs.png');">
+        <div class="ies-panel-overlay"></div>
+        <div class="ies-label">RVS</div>
+      </div>
+
+      <div class="ies-panel"
+           style="background-image:url('./images/axon.png');">
+        <div class="ies-panel-overlay"></div>
+        <div class="ies-label">AXON</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const panels = document.querySelectorAll('.ies-panel');
+
+      panels.forEach(panel => {
+        panel.addEventListener('mouseenter', () => {
+          panels.forEach(p => p.classList.remove('active'));
+          panel.classList.add('active');
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
