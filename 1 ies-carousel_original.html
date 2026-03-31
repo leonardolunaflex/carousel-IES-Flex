@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IES Accordion Carousel</title>
 
   <style>
-
-
     /* Fuente personalizada */
     @font-face {
       font-family: 'AvantGardeBold';
@@ -19,7 +18,8 @@
     /* Contenedor principal */
     .ies-carousel-container {
       display: flex;
-      flex-direction: column;             /* 🔹 CAMBIO CLAVE */
+      flex-direction: column;
+      /* 🔹 CAMBIO CLAVE */
       align-items: center;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding: 20px;
@@ -29,29 +29,57 @@
       margin: 0 auto;
     }
 
+    /* Animaciones de entrada */
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     /* Título arriba */
     .ies-title-section {
-      width: 100%;
-      text-align: center;                 /* 🔹 */
-      margin-bottom: 30px;                /* 🔹 separa del carrusel */
+      width: 120%;
+      text-align: center;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     }
 
     .ies-title-section h2 {
       font-family: 'AvantGardeBold', 'Segoe UI', Tahoma, sans-serif;
-      color: #262626;
-      font-size: 3rem;
-      line-height: 1.2;
+      /* Estilo elegante, llamativo y formal inspirado en la marca */
+      background: linear-gradient(135deg, #005486 0%, #009ADD 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #005486;
+      /* Fallback */
+
+      /* Responsividad en una sola línea */
+      white-space: nowrap;
+      font-size: clamp(10px, 3vw, 2.5rem);
+      line-height: 1.3;
       margin: 0;
       font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     /* Carrusel ahora usa todo el ancho */
     .ies-accordion {
       display: flex;
       width: 100%;
-      height: 450px;                      /* 🔹 MÁS ALTURA */
+      height: 450px;
       gap: 15px;
       overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
     }
 
     .ies-panel {
@@ -60,50 +88,74 @@
       border-radius: 20px;
       background-size: cover;
       background-position: center;
-      transition: flex 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: flex 0.7s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.7s ease;
       cursor: pointer;
       overflow: hidden;
       background-color: #ededed;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Pseudo-elemento para oscurecer paneles inactivos suavemente */
+    .ies-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.35);
+      transition: background-color 0.7s ease;
+      z-index: 1;
     }
 
     .ies-panel:hover,
     .ies-panel.active {
       flex: 3;
+      box-shadow: 0 10px 30px rgba(0, 84, 134, 0.15);
+      /* Sombra elegante azul oscuro */
+    }
+
+    .ies-panel:hover::after,
+    .ies-panel.active::after {
+      background-color: rgba(0, 0, 0, 0);
+      /* Quita el velo oscuro al activar */
     }
 
     .ies-panel-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 45%);
+      z-index: 2;
     }
 
     .ies-label {
       position: absolute;
-      bottom: 30px;
+      bottom: 20px;
       left: 0;
       background-color: #005486;
       color: #ffffff;
-      padding: 12px 20px;
+      padding: 12px 22px;
       font-size: 1.1rem;
       font-weight: bold;
-      transition: all 0.4s ease;
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      transform: translateX(-15px);
+      opacity: 0.8;
+      z-index: 3;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .ies-panel:hover .ies-label,
     .ies-panel.active .ies-label {
       background-color: #009ADD;
+      transform: translateX(0);
+      opacity: 1;
+      bottom: 30px;
     }
+
 
     /* Responsive */
     @media (max-width: 900px) {
       .ies-accordion {
         height: 380px;
-      }
-
-      .ies-title-section h2 {
-        font-size: 2.4rem;
       }
     }
 
@@ -128,22 +180,20 @@
     <!-- Carrusel -->
     <div class="ies-accordion">
 
-      <div class="ies-panel active"
-           style="background-image:url('./images/webMethods.png');">
+      <div class="ies-panel" style="background-image:url('./images/webMethods.png');">
+
         <div class="ies-panel-overlay"></div>
-        <div class="ies-label">webMethods</div>
+        <!-- <div class="ies-label">webMethods</div> -->
       </div>
 
-      <div class="ies-panel"
-           style="background-image:url('./images/rvs.png');">
+      <div class="ies-panel" style="background-image:url('./images/rvs.png');">
         <div class="ies-panel-overlay"></div>
-        <div class="ies-label">RVS</div>
+        <!-- <div class="ies-label">RVS</div> -->
       </div>
 
-      <div class="ies-panel"
-           style="background-image:url('./images/axon.png');">
+      <div class="ies-panel" style="background-image:url('./images/axon.png');">
         <div class="ies-panel-overlay"></div>
-        <div class="ies-label">AXON</div>
+        <!-- <div class="ies-label">AXON</div> -->
       </div>
 
     </div>
@@ -163,4 +213,5 @@
   </script>
 
 </body>
+
 </html>
