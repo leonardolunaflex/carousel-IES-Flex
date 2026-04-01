@@ -86,12 +86,25 @@
       position: relative;
       flex: 1;
       border-radius: 20px;
-      background-size: cover;
-      background-position: center;
       transition: flex 0.7s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
       cursor: pointer;
       overflow: hidden;
       background-color: #ededed;
+    }
+
+    /* Fondo separado para permitir animación de zoom sin distorsión */
+    .ies-panel-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 0;
+    }
+
+    .ies-panel:hover .ies-panel-bg,
+    .ies-panel.active .ies-panel-bg {
+      transform: scale(1.08); /* Zoom sutil para hacer más visible la imagen */
     }
 
     /* Leve disminución de iluminación cuando no es on-hover */
@@ -132,7 +145,7 @@
     .ies-panel.active::after {
       background-color: rgba(0, 0, 0, 0);
     }
-    
+
     .ies-panel:hover::before,
     .ies-panel.active::before {
       animation: shine 1s cubic-bezier(0.25, 1, 0.5, 1);
@@ -204,19 +217,21 @@
     <!-- Carrusel -->
     <div class="ies-accordion">
 
-      <div class="ies-panel" style="background-image:url('./images/webMethods.png');">
-
+      <div class="ies-panel">
+        <div class="ies-panel-bg" style="background-image:url('./images/cover_webMethods.png');"></div>
         <div class="ies-panel-overlay"></div>
         <!--<div class="ies-label">webMethods</div>-->
       </div>
 
-      <div class="ies-panel" style="background-image:url('./images/rvs.png');">
+      <div class="ies-panel">
+        <div class="ies-panel-bg" style="background-image:url('./images/cover_rvs.png');"></div>
         <div class="ies-panel-overlay"></div>
         <!--<div class="ies-label">RVS
       </div>-->
       </div>
 
-      <div class="ies-panel" style="background-image:url('./images/axon.png');">
+      <div class="ies-panel">
+        <div class="ies-panel-bg" style="background-image:url('./images/cover_axon.png');"></div>
         <div class="ies-panel-overlay"></div>
         <!--<div class="ies-label">AXON</div>-->
       </div>
