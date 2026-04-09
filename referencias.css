@@ -1,0 +1,18 @@
+style="background-image:url('https://flextronics365.sharepoint.com/sites/eisoperations/Assets/images/cover_eis.png');">style="background-image:url('https://flextronics365.sharepoint.com/sites/eisoperations/Assets/images/cover_webmethods.png');">style="background-image:url('https://flextronics365.sharepoint.com/sites/eisoperations/Assets/images/cover_rvs.png');">style="background-image:url('https://flextronics365.sharepoint.com/sites/eisoperations/Assets/images/cover_axon.png');">.ies-label {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    background-color: #005486;
+    color: #ffffff;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.4s ease;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.ies-panel:hover .ies-label,
+.ies-panel.active .ies-label {
+    background-color: #009ADD;
+}
